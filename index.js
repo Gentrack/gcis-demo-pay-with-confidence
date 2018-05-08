@@ -10,11 +10,16 @@ const publicKey = process.env.PUBLIC_KEY;
 // the API key to call API key to publish push notification
 const taplytics_api_token = process.env.TAPLYTICS_API_TOKEN;
 /*
-A signature contains a time stamp and a hash value, in this format:
+A signature contains a time stamp and a payload signature, in this format:
 t=1504742008,v=dVLlVxcw1O/7m4GxeeaxyBxsj9AJpTeSmrdCywD2VsvIxRsB7AqBS9MNscuMYCuXs2/0TUnXgkzVPvWGQw73Jg==
-The hash is computed as: hash = HMAC512(timestamp + '.' + payload)
-*/
-const verifySignature = (signature, publicKey, payload) => {
+The timestamp is the Unix time of the moment when the signature is created.
+The signature is a private key signature of the SHA512 hash of the concatenation of the timestamp, a dot and the payload data.
+The signature itself is Base64 encoded.
+
+To verify a signature, we need:
+- Obtain the public key for the application from the Developer Portal.
+- Use the public key to verify the SHA512 hash of "timestamp + "." + payload". 
+*/const verifySignature = (signature, publicKey, payload) => {
     if (!signature) {
         throw new Error('Empty signature');
     }
@@ -41,10 +46,10 @@ const verifySignature = (signature, publicKey, payload) => {
     verifier.update(t + ".");
     verifier.update(payload);
     const sigToVerify = digest.substr(2);
-    if (!verifier.verify(publicKey, sigToVerify)) {
+    if (!verifier.verify(publicKey, sigToVerify, 'base64')) {
         throw new Error('Invalid signature');
     }
-
+    console.log("Webhook signature verified");
     return true;
 };
 const verifyCallback = (req, res, buf, encoding) => {
@@ -58,7 +63,7 @@ const verifyCallback = (req, res, buf, encoding) => {
 const app = express();
 app.use(express.static('public'))
 app.use(bodyParser.json({
-    verifyCallback,
+    verify: verifyCallback,
 }));
 app.get('/', (req, res) => res.send('Gentrack Platform Push Notification Demo - webhook'));
 app.post('/webhook', (req, res) => {
