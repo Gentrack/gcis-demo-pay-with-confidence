@@ -55,7 +55,7 @@ You will need to provide those to the Android application we will build as a nex
 3. To clone Repository, specify Git Repository URL as well as select Parent Directory and Directory Name for the project to be cloned to, then click **Clone**
 4. Create an Android Studio project following the dialog
 5. In Android Studio, open ‘mobileAppAndroid\app\src\main\res\values\strings.xml’
-6. At the bottom of __strings.xml__, update `taplytics_android_sdk_key` and `taplytics_android_sdk_key` with the key definitions of your Taplytics application, obtained earlier.
+6. At the bottom of __strings.xml__, update `taplytics_android_sdk_key` and `taplytics_android_url_scheme` with the key definitions of your Taplytics application, obtained earlier.
 7. Build the application.
 
 ## Create Android Emulator
@@ -82,7 +82,7 @@ The Android application will connect to Taplytics, allowing it to finish SDK int
    * Country/region – choose a region that suits you
 4. Click **Continue** once you are advised that your new project is ready
 5. On the Firebase left side bar, click the **Settings** icon and select **Project settings**
-6. On the __Cloud Messaging__ page, click the button **Add Server Key**. You will need to provide **Server ID** and two **Server key tokens** to __Google Cloud Messaging__ in Taplytics
+6. On the __Cloud Messaging__ page, click the button **Add Server Key**. You will need to provide **Sender ID** and two **Server key** to __Google Cloud Messaging__ in Taplytics
 7. On the Taplytics __Dashboard__ page, click **Settings**
 8. On the __Settings__ page, copy **Taplytics REST API Private Key** - save it for later
 9. On the __Settings__ page, select **Push Notification Settings**
@@ -111,8 +111,12 @@ It is time to deploy the integration. This will setup an app in Heroku to connec
 2. On the __Create New App__, populate the following values, then click **Deploy app**
     * App name - provide a value, or leave it blank to let Heroku generate a value
     * Region - chooses a region that suits you
-    * PUBLIC_KEY – paste the Platform public key you obtained earlier
-    * TAPLYTICS_API_TOKEN – paste the Taplytics REST API Private Key you obtained on the step 8.
+    * PUBLIC_KEY - paste the Platform public key you obtained earlier
+    * TAPLYTICS_API_TOKEN - paste the Taplytics REST API Private Key you obtained on the step 8.
+
+### Notes
+
+* This sample integration does not target specific clients, it broadcasts push notifications to all clients. When you build your own product, filters, i.e. user_id, in Taplytics can be used to target the specific clients.
 
 ## Subscribe to the bill-ready event and send a test event
 
@@ -127,9 +131,9 @@ Now that the integration layer is configured, and the Android application is bui
     * Select the **bill-ready** event
 6. Once the event is subscribed, click the **Send Test Event** button
 7. In the __Send Test Event__ dialog, populate the following values or use the default ones, then click **Send**
-    * accountID – Unique identifier of the account holder
-    * dueDate – Date that the next payment is due on
-    * dueAmount – Next payment amount required
+    * accountID - Unique identifier of the account holder
+    * dueDate - Date that the next payment is due on
+    * dueAmount - Next payment amount required
 
 In a few moments you should receive your sample push notification! Pull the notification down to get a richer content. Click on the buttons and see what will happen!
 
