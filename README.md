@@ -6,13 +6,13 @@ Getting parted with money is always a very sensitive subject, even if this is ju
 
 Rich push notifications are called so as they support rich media attachments such as images, videos, audio, and interactive buttons. Rich push notifications expand your arsenal of creating meaningful connections with your customers using a mobile app. Advanced notifications help to convey meaning with images, further improving your overall engagement strategy. As an implementation tool, we use Taplytics. Being an engagement platform, Taplytics engages and delivers a personalised 1-to-1 mobile customer experience. It provides A/B testing capabilities and measures the impact notifications have on app engagement.
 
-In this demo we connect the Gentrack Platform to an integration layer, represented by Heroku. This layer sends the data to Taplytics to trigger customer engagement. The process flows as follows:
+In this demo we connect the Gentrack Cloud Integration Services (GCIS) to an integration layer, represented by Heroku. This layer sends the data to Taplytics to trigger customer engagement. The process flows as follows:
 
 ![Flow](flow.png)
 
 1. A bill is generated for a customer in a Gentrack core system.
-2. The core system triggers and publishes an event to the Gentrack Platform.
-3. The Gentrack Platform then sends the event to a registered webhook – a Heroku application that receives bill events from the Platform and then pushes notifications to registered devices using Taplytics APIs.
+2. The core system triggers and publishes an event to the GCIS.
+3. The GCIS then sends the event to a registered webhook – a Heroku application that receives bill events from the GCIS and then pushes notifications to registered devices using Taplytics APIs.
 
 As you think about your production deployment you might choose other methods for integration (e.g. event bus, workflow-based integration layer, etc...). You will also want to consider how to secure secrets, such as API keys, in your integration layer.
 
@@ -20,7 +20,7 @@ As you think about your production deployment you might choose other methods for
 
 You will need to have:
 
-* [Gentrack Platform Developer Portal](https://portal.gentrack.io) Account - contact your organisation administrator to get an invite, or your account manager to enroll your organisation
+* [GCIS Developer Portal](https://portal.gentrack.io) Account - contact your organisation administrator to get an invite, or your account manager to enroll your organisation
 * [Taplytics](https://taplytics.com/) Account
 * Google Account in order to
   * sign in to [Firebase](https://firebase.google.com/)
@@ -94,16 +94,16 @@ The Android application will connect to Taplytics, allowing it to finish SDK int
    * GCM API KEY – The second Server key token you obtained on the step 6
 12. In __Android Studio__, restart the Android application, and it is ready to receive push notifications.
 
-## Obtain Gentrack Platform app public key
+## Obtain GCIS app public key
 
-Before you deploy the integration, you will need the public key of your Gentrack Platform app definition to verify that received events are valid.
-1. Sign in to the [Gentrack Platform Developer Portal](https://portal.gentrack.io/)
+Before you deploy the integration, you will need the public key of your GCIS app definition to verify that received events are valid.
+1. Sign in to the [GCIS Developer Portal](https://portal.gentrack.io/)
 2. Add a new app using your non-production tenant
 3. Open the app settings and copy the public key - save it for later.
 
 ## Deploy the sample integration on Heroku
 
-It is time to deploy the integration. This will setup an app in Heroku to connect Taplytics and Gentrack Platform.
+It is time to deploy the integration. This will setup an app in Heroku to connect Taplytics and GCIS.
 1. Click the **Deploy to Heroku** button to create a new instance of this sample integration:
 
     [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/Gentrack/gcis-demo-pay-with-confidence)
@@ -111,7 +111,7 @@ It is time to deploy the integration. This will setup an app in Heroku to connec
 2. On the __Create New App__, populate the following values, then click **Deploy app**
     * App name - provide a value, or leave it blank to let Heroku generate a value
     * Region - chooses a region that suits you
-    * PUBLIC_KEY - paste the Platform public key you obtained earlier
+    * PUBLIC_KEY - paste the GCIS public key you obtained earlier
     * TAPLYTICS_API_TOKEN - paste the Taplytics REST API Private Key you obtained on the step 8.
 
 ### Notes
@@ -120,9 +120,9 @@ It is time to deploy the integration. This will setup an app in Heroku to connec
 
 ## Subscribe to the bill-ready event and send a test event
 
-Now that the integration layer is configured, and the Android application is built, it is time to connect the app you created earlier in the Gentrack Platform Developer Portal to the integration layer and send a test event:
+Now that the integration layer is configured, and the Android application is built, it is time to connect the app you created earlier in the GCIS Developer Portal to the integration layer and send a test event:
 
-1. Sign in to the [Gentrack Platform Developer Portal](https://portal.gentrack.io/)
+1. Sign in to the [GCIS Developer Portal](https://portal.gentrack.io/)
 2. Open the app settings for the app you created earlier
 3. Under __App Settings__, click **Event Subscriptions**
 4. On the __Event Subscriptions__ page, click **Edit**
@@ -144,4 +144,4 @@ Make sure to clean up after you are done experimenting with the sample, otherwis
 * In Taplytics, you can delete the application
 * In Firebase, you can delete the project
 * In Heroku, you can delete the application
-* In Gentrack Platform, you can delete the application
+* In GCIS, you can delete the application
