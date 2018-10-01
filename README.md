@@ -97,7 +97,7 @@ The Android application will connect to Taplytics, allowing it to finish SDK int
 ## Obtain GCIS app public key
 
 Before you deploy the integration, you will need the public key of your GCIS app definition to verify that received events are valid.
-1. Sign in to the [GCIS Developer Portal](https://portal.gentrack.io/)
+1. Sign in to the [GCIS Developer Portal](https://portal.integration.gentrack.cloud/)
 2. Add a new app using your non-production tenant
 3. Open the app settings and copy the public key - save it for later.
 
