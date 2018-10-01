@@ -20,7 +20,7 @@ As you think about your production deployment you might choose other methods for
 
 You will need to have:
 
-* [GCIS Developer Portal](https://portal.gentrack.io) Account - contact your organisation administrator to get an invite, or your account manager to enroll your organisation
+* [GCIS Developer Portal](https://portal.integration.gentrack.cloud/) Account - contact your organisation administrator to get an invite, or your account manager to enroll your organisation
 * [Taplytics](https://taplytics.com/) Account
 * Google Account in order to
   * sign in to [Firebase](https://firebase.google.com/)
@@ -122,7 +122,7 @@ It is time to deploy the integration. This will setup an app in Heroku to connec
 
 Now that the integration layer is configured, and the Android application is built, it is time to connect the app you created earlier in the GCIS Developer Portal to the integration layer and send a test event:
 
-1. Sign in to the [GCIS Developer Portal](https://portal.gentrack.io/)
+1. Sign in to the [GCIS Developer Portal](https://portal.integration.gentrack.cloud/)
 2. Open the app settings for the app you created earlier
 3. Under __App Settings__, click **Event Subscriptions**
 4. On the __Event Subscriptions__ page, click **Edit**
